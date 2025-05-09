@@ -1,4 +1,11 @@
 package com.atipera.service.servicePayment.impl;
 
-public class LoyaltyPointsPayment {
+import com.atipera.model.Order;
+import com.atipera.service.servicePayment.Strategy;
+
+public class LoyaltyPointsPayment implements Strategy {
+    @Override
+    public void pay(Order order) {
+
+    }
 }
