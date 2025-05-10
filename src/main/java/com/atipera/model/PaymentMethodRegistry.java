@@ -19,7 +19,7 @@ public class PaymentMethodRegistry {
         this.registry = registry;
     }
 
-    public void putSafely(PaymentMethod paymentMethod){
+    public void add(PaymentMethod paymentMethod){
         if(Objects.isNull(paymentMethod) || Objects.isNull(paymentMethod.getId())){
             System.out.println("PaymentMethodRegistry received an empty object on putSafely method");
             return;

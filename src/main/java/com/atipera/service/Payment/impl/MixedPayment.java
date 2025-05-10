@@ -1,7 +1,7 @@
-package com.atipera.service.servicePayment.impl;
+package com.atipera.service.Payment.impl;
 
 import com.atipera.model.Order;
-import com.atipera.service.servicePayment.Strategy;
+import com.atipera.service.Payment.Strategy;
 
 public class MixedPayment implements Strategy {
     @Override
