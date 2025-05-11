@@ -1,5 +1,6 @@
 package com.atipera.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,11 +16,15 @@ public class Order {
     private String id;
     private BigDecimal value;
     private List<String> promotions;
+    private int loyaltyPointsUsed;
+    private BigDecimal finalAmount;
 
-    public Order(String id, BigDecimal value, List<String> promotions) {
+    public Order(String id, BigDecimal value, List<String> promotions, int loyaltyPointsUsed, BigDecimal finalAmount) {
         this.id = id;
         this.value = value;
         this.promotions = promotions;
+        this.loyaltyPointsUsed = loyaltyPointsUsed;
+        this.finalAmount = finalAmount;
     }
 
     public String getId() {

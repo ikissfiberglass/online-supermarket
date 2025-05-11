@@ -19,5 +19,4 @@ public class JsonDeserializer {
     public static List<PaymentMethod> deserializePaymentMethod(String path) throws IOException{
         return objectMapper.readValue(new File(path), new TypeReference<List<PaymentMethod>>() {});
     }
-
 }
