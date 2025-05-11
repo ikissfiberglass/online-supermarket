@@ -24,12 +24,12 @@ public class PaymentProcessor {
 
     public PaymentResult process(Order order){
         String bestMethod = findBestPaymentMethod(order);
-        System.out.println("Best payment method: " + bestMethod + " for order #" + order.getId());
+//        System.out.println("Best payment method: " + bestMethod + " for order #" + order.getId());
         return strategies.stream()
                 .filter(strategy -> strategy.supports(bestMethod))
                 .findFirst()
                 .map(strategy -> {
-                    System.out.println("Using payment strategy: " + strategy.getClass().getSimpleName());
+//                    System.out.println("Using payment strategy: " + strategy.getClass().getSimpleName());
                     return strategy.pay(order);
                 })
                 .orElseThrow(() -> new IllegalArgumentException("Unsupported payment operation: " + bestMethod));

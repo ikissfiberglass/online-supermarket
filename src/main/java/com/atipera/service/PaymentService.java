@@ -16,7 +16,7 @@ public class PaymentService {
     public void processOrders(List<Order> orders){
         orders.forEach(order -> {
             PaymentResult result = processor.process(order);
-            System.out.println("Order " + order.getId() + "processed with: " + result.getMessage());
+//            System.out.println("Order " + order.getId() + "processed with: " + result.getMessage());
         });
     }
 }

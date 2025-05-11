@@ -40,7 +40,7 @@ public class CardPayment implements PaymentStrategy {
                 method = availableMethods.get(0);
             }
         }
-        if (method == null) {
+        if (Objects.isNull(method)) {
             throw new IllegalArgumentException("No valid payment method found for order: " + order.getId());
         }
         BigDecimal discountAmount = order.getValue()
