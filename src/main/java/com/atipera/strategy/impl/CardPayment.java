@@ -7,6 +7,7 @@ import com.atipera.model.PaymentResult;
 import com.atipera.strategy.PaymentStrategy;
 
 import java.math.BigDecimal;
+import java.util.*;
 
 public class CardPayment implements PaymentStrategy {
     private final PaymentMethodRegistry registry;
@@ -22,12 +23,31 @@ public class CardPayment implements PaymentStrategy {
 
     @Override
     public PaymentResult pay(Order order) {
-//        return new PaymentResult(true, "Paid by card", order.getValue(), 0);
-        PaymentMethod method = registry.getPaymentById("CARD")
-                .orElseThrow(() -> new IllegalArgumentException("Payment method 'CARD' not found in registry"));
-        BigDecimal discountAmount = order.getValue().multiply(BigDecimal.valueOf(method.getDiscount())).divide(BigDecimal.valueOf(100));
+        PaymentMethod method = null;
+        List<String> promotions = order.getPromotions();
+
+        if (promotions != null && !promotions.isEmpty()) {
+            for (String promo : promotions) {
+                Optional<PaymentMethod> methodOpt = registry.getPaymentById(promo);
+                if (methodOpt.isPresent()) {
+                    method = methodOpt.get();
+                    break;
+                }
+            }
+        } else {
+            List<PaymentMethod> availableMethods = registry.getAll();
+            if (!availableMethods.isEmpty()) {
+                method = availableMethods.get(0);
+            }
+        }
+        if (method == null) {
+            throw new IllegalArgumentException("No valid payment method found for order: " + order.getId());
+        }
+        BigDecimal discountAmount = order.getValue()
+                .multiply(BigDecimal.valueOf(method.getDiscount()))
+                .divide(BigDecimal.valueOf(100));
         BigDecimal amountCharged = order.getValue().subtract(discountAmount);
 
-        return new PaymentResult(true, "PAid by card with discount", amountCharged, 0);
+        return new PaymentResult(true, "Paid by " + method.getId() + " with discount", amountCharged, 0);
     }
 }

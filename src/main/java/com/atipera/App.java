@@ -25,7 +25,6 @@ public class App
         if(args.length < 2){
             System.err.println("App should be runned with 2 arguments provided: <orders.json> <paymentmethods.json>");
         }
-
         try{
             List<Order> orders = JsonDeserializer.deserializeOrders(args[0]);
             List<PaymentMethod> methods = JsonDeserializer.deserializePaymentMethod(args[1]);
@@ -41,6 +40,7 @@ public class App
             );
 
             PaymentProcessor processor = new PaymentProcessor(strategies, registry);
+            processor.printRegisteredPaymentMethods();
             PaymentService paymentService = new PaymentService(processor);
             paymentService.processOrders(orders);
         }catch (IOException ioe){

@@ -22,6 +22,8 @@ public class LoyaltyPointsPayment implements PaymentStrategy {
 
     @Override
     public PaymentResult pay(Order order) {
+        //TODO add not-null check
+
         PaymentMethod method = registry.getPaymentById("PUNKTY").
                 orElseThrow(() -> new IllegalArgumentException("Payment method 'LOYALTY_POINTS' not found in registry"));
         BigDecimal discountAmount = order.getValue().multiply(BigDecimal.valueOf(method.getDiscount())).divide(BigDecimal.valueOf(100));

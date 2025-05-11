@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class JsonDeserializer {
@@ -19,4 +20,8 @@ public class JsonDeserializer {
     public static List<PaymentMethod> deserializePaymentMethod(String path) throws IOException{
         return objectMapper.readValue(new File(path), new TypeReference<List<PaymentMethod>>() {});
     }
+
+//    public static <T> List<T> deserializeJson(String path, T listType){
+//        return objectMapper.readValue(new File(path), new TypeReference<List<T>>() {});
+//    }
 }
